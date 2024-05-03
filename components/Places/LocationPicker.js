@@ -2,8 +2,9 @@ import { View,StyleSheet,Alert } from "react-native"
 import OutlineButton from "../UI/OutlineButton"
 import { Colors } from "../../constants/color"
 import {getCurrentPositionAsync,useForegroundPermissions,PermissionStatus} from 'expo-location'
-
+import { useNavigation } from "@react-navigation/native"
 const LocationPicker=()=>{
+    const navigation=useNavigation()
     const [locationPermissionInformation,requestPermission]= useForegroundPermissions();
     const verifyPermission=async()=>{
         if(locationPermissionInformation.status===PermissionStatus.UNDETERMINED){
@@ -25,7 +26,9 @@ const LocationPicker=()=>{
         const location=  await getCurrentPositionAsync()
         console.log(location)
     }
-    const pickOnMapHandler=()=>{}
+    const pickOnMapHandler=()=>{
+        navigation.navigate('Map')
+    }
     return(
         <View>
             <View style={styles.mapPreview}></View>
